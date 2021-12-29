@@ -1,14 +1,13 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const { Question } = require("../models/question");
-const crawlerConstants = require("../constants/crawlerConsts");
 const crawlerConsts = require("../constants/crawlerConsts");
 const fetchQuestionsByPageNumber = async (pageNumber, setTaskInTasksQueue) => {
 	try {
 		const response = await axios.get(`${process.env.HOST_QUESTION_ENDPOINT}?&page=${pageNumber}`);
 		const $ = cheerio.load(response.data);
 		const links = $(crawlerConsts.FETCH_QUESTION_FROM_QUESTION_PAGE_SELECTOR)
-			.map((i, link) => `${process.env.HOST}${link.attribs.href}`)
+			.map((i, link) => `${process.env.HOST_URL}${link.attribs.href}`)
 			.get();
 		setTaskInTasksQueue(links);
 	} catch (error) {
@@ -37,7 +36,7 @@ exports.retriveQuestionData = async (questionUrl, currentPage, setTaskInTasksQue
 		urlData.noOfUpvotes = upvote;
 	}
 	const relatedQuestions = $(crawlerConsts.RELETED_QUESTION_SELECTOR)
-		.map((i, link) => `https://stackoverflow.com${link.attribs.href}`)
+		.map((i, link) => `${process.env.HOST_URL}${link.attribs.href}`)
 		.get();
 	if (relatedQuestions.length > 0) {
 		setTaskInTasksQueue(relatedQuestions);
