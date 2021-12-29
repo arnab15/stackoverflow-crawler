@@ -1,0 +1,19 @@
+{
+  "name": "airtribe-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
+    "csv-writer": "^1.6.0",
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.1.4"
+  }
+}
